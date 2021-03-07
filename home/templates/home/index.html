@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div>
+      <h3 class="float-md-start mb-0">Nutz About</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="#">Login</a>
+        <a class="nav-link" href="#">Continue as Guest</a>
+        
+      </nav>
+    </div>
+    
+    <div class="container">
+        <a><img src="/media/bolts.png"></a>
+    <h1 class="text-center p-4">Nutz About</h1>
+    <p class="lead text-center">Create account to make checking out faster and easier, or enter site without account!</p>
+    <p class="lead text-center p-3">
+      <a href="#" class="btn btn-lg btn-success fw-bold">Create Account</a>
+      <a href="#" class="btn btn-lg btn-danger fw-bold">Continue as Guest</a>
+    </p>
+    
+    </div>
+{% endblock %}
