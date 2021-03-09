@@ -3,20 +3,23 @@
 
 {% block content %}
     <div>
-      <h3 class="float-md-start mb-0">Nutz About</h3>
+      <h3 class="float-md-start mb-0" style="color:blue;">Nutz About</h3>
       <nav class="nav nav-masthead justify-content-center float-md-end">
         <a class="nav-link active" aria-current="page" href="#">Login</a>
         <a class="nav-link" href="#">Continue as Guest</a>
         
       </nav>
+      
     </div>
-    <div class="container">
-    <h1 class="text-center p-4">Nutz About</h1>
-    <p class="lead text-center">Create account to make checking out faster and easier, or enter site without account!</p>
-    <p class="lead text-center p-3">
-      <a href="#" class="btn btn-lg btn-success fw-bold">Create Account</a>
-      <a href="#" class="btn btn-lg btn-danger fw-bold">Continue as Guest</a>
-    </p>
-    <a><img src="/media/bolts.png"></a>
-    </div>
+    <body style="background-image: url('/media/bolts.png');">
+        <div class="container">
+        <h1 class="text-center fw-bolder p-4" style="color:blue;">Nutz About</h1>
+        <h2 class="text-center fw-bolder p-1" style="color:blue; background: rgb(241, 236, 236);">Create account to make checking out faster and easier, <br>or enter site without account!</h2>
+        <p class="lead text-center p-3">
+            <a href="{% url 'mainsite' %}" class="btn btn-lg btn-success fw-bold">Create Account</a>
+            <a href="{% url 'mainsite' %}" class="btn btn-lg btn-danger fw-bold">Continue as Guest</a>
+        </p>
+
+        </div>
+    </body>
 {% endblock %}
