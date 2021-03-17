@@ -7,8 +7,8 @@
             <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
                 <a href="{% url 'products' %}" class="dropdown-item">By Price</a>
                 <a href="{% url 'products' %}" class="dropdown-item ">By Rating</a>
-                <a href="" class="dropdown-item ">By Category</a>
-                <a href="" class="dropdown-item">All Products</a>
+                <a href="{% url 'products' %}" class="dropdown-item ">By Category</a>
+                <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
             </div>
         </li>
 
@@ -40,9 +40,9 @@
                 Screws
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="homeware-link">
-                <a href="" class="dropdown-item">Metal</a>
-                <a href="" class="dropdown-item">Wood</a>
-                <a href="" class="dropdown-item">???</a>
+                <a href="{% url 'products' %}" class="dropdown-item">Metal</a>
+                <a href="{% url 'products' %}" class="dropdown-item">Wood</a>
+                <a href="{% url 'products' %}" class="dropdown-item">???</a>
             </div>
         </li>
 
@@ -51,10 +51,10 @@
                 Special Offers
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="specials-link">
-                <a href="" class="dropdown-item">New Arrivals</a>
-                <a href="" class="dropdown-item">Deals</a>
-                <a href="" class="dropdown-item">Clearance</a>
-                <a href="" class="dropdown-item">All Specials</a>
+                <a href="{% url 'products' %}" class="dropdown-item">New Arrivals</a>
+                <a href="{% url 'products' %}" class="dropdown-item">Deals</a>
+                <a href="{% url 'products' %}" class="dropdown-item">Clearance</a>
+                <a href="{% url 'products' %}" class="dropdown-item">All Specials</a>
             </div>
         </li>
     </ul>
