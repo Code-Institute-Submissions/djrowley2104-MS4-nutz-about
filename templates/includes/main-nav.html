@@ -5,8 +5,8 @@
                 All Products
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
-                <a href="" class="dropdown-item">By Price</a>
-                <a href="" class="dropdown-item ">By Rating</a>
+                <a href="{% url 'products' %}" class="dropdown-item">By Price</a>
+                <a href="{% url 'products' %}" class="dropdown-item ">By Rating</a>
                 <a href="" class="dropdown-item ">By Category</a>
                 <a href="" class="dropdown-item">All Products</a>
             </div>
@@ -17,10 +17,10 @@
                 Nuts
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="clothing-link">
-                <a href="" class="dropdown-item">Ni Lock</a>
-                <a href="" class="dropdown-item">Standard</a>
-                <a href="" class="dropdown-item">Metal Locking</a>
-                <a href="" class="dropdown-item">????</a>
+                <a href="{% url 'products' %}?category=ni_lock_nut" class="dropdown-item">Ni Lock</a>
+                <a href="{% url 'products' %}?category=nuts" class="dropdown-item">Standard</a>
+                <a href="{% url 'products' %}?category=cast_nut" class="dropdown-item">Castellated Nut</a>
+                <a href="{% url 'products' %}?category=???" class="dropdown-item">????</a>
             </div>
         </li>
 
@@ -29,9 +29,9 @@
                 Bolts
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="homeware-link">
-                <a href="" class="dropdown-item">Hex Headed</a>
-                <a href="" class="dropdown-item">Alan Headed</a>
-                <a href="" class="dropdown-item">Bi Hex Headed</a>
+                <a href="{% url 'products' %}?category=hex_head" class="dropdown-item">Hex Headed</a>
+                <a href="{% url 'products' %}?category=" class="dropdown-item">Alan Headed</a>
+                <a href="{% url 'products' %}?category=" class="dropdown-item">Bi Hex Headed</a>
             </div>
         </li>
 
