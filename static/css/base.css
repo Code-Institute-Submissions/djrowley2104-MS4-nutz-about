@@ -10,6 +10,19 @@ body {
     font-family: 'Lato';
 }
 
+.text-black {
+    color: #000 !important;
+}
+
+.border-black {
+    border: 1px solid black !important;
+}
+
+
+.bg-black {
+    background: rgb(245, 229, 15) !important;
+}
+
 /* -------------------------------- Media Queries */
 
 /* Slightly larger container on xl screens */
