@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
 
-from .models import Product, Category
+from .models import Product, Category, ProductSize
 
 # Create your views here.
 
@@ -61,9 +61,10 @@ def product_detail(request, product_id):
     """ A view to show individual product details """
 
     product = get_object_or_404(Product, pk=product_id)
-
+    sizes = ProductSize.objects.filter(product=product)
     context = {
         'product': product,
+        'sizes': sizes
     }
 
     return render(request, 'products/product_detail.html', context)

@@ -29,7 +29,7 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="product-details-container mb-5 mt-md-5">
                     <p class="mb-0">{{ product.name }}</p>
-                    <p class="lead mb-0 text-left font-weight-bold">£{{ product.price }}</p>
+                    <p class="lead mb-0 text-left font-weight-bold" id="currentPrice">£{{ product.price }}</p>
                     {% if product.category %}
                     <p class="small mt-1 mb-0">
                         <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
@@ -46,19 +46,13 @@
                     <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row">
-                            {% with product.has_sizes as s %}
-                            {% if s %}
+                            {% if sizes %}
                                 <div class="col-12">
                                     <p><strong>Size:</strong></p>
-                                    <select class="form-control rounded-0 w-50" name="product_size" id='id_product_size'>
-                                        <option value="m3">M3</option>
-                                        <option value="m4">M4</option>
-                                        <option value="m5">M5</option>
-                                        <option value="m6" selected>M6</option>
-                                        <option value="m7">M7</option>
-                                        <option value="m8">M8</option>
-                                        <option value="m10">M10</option>
-                                        <option value="m12">M12</option>
+                                    <select class="form-control rounded-0 w-50" name="product_size" id="id_product_size">
+                                        {%for size in sizes %}
+                                            <option value="{{size.price}}">{{size.name}}</option>
+                                        {%endfor%}
                                     </select>
                                 </div>
                             {% endif %}
@@ -100,7 +94,6 @@
                                 <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Bag">
                             </div>
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                            {% endwith %}
                         </div>
                     </form>
                 </div>
@@ -112,4 +105,12 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
+
+<script>
+    function updatePrice(event){
+        console.log("I selected ", event.target.value, ' size');
+        document.getElementById('currentPrice').innerHTML = '£' + event.target.value;
+    }
+    document.getElementById('id_product_size').addEventListener("change", updatePrice);
+</script>
 {% endblock %}
