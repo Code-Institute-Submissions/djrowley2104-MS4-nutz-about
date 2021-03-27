@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from django.contrib import messages
 
-from products.models import Product
+from products.models import Product, ProductSize
 
 # Create your views here.
 
@@ -19,9 +19,13 @@ def add_to_bag(request, item_id):
     size = None
     if 'product_size' in request.POST:
         size = request.POST['product_size']
+        product_size_price = ProductSize.objects.get(pk=size).price
+        print("sending product size", size)
+        product.price = product_size_price
     bag = request.session.get('bag', {})
 
     if size:
+        print('bag contents ', list(bag.keys()))
         if item_id in list(bag.keys()):
             if size in bag[item_id]['items_by_size'].keys():
                 bag[item_id]['items_by_size'][size] += quantity
@@ -32,6 +36,7 @@ def add_to_bag(request, item_id):
         else:
             bag[item_id] = {'items_by_size': {size: quantity}}
             messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
+            print("bag with size", bag)
     else:
         if item_id in list(bag.keys()):
             bag[item_id] += quantity

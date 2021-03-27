@@ -29,7 +29,7 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="product-details-container mb-5 mt-md-5">
                     <p class="mb-0">{{ product.name }}</p>
-                    <p class="lead mb-0 text-left font-weight-bold" id="currentPrice">£{{ product.price }}</p>
+                    <p class="lead mb-0 text-left font-weight-bold" id="currentPrice">£ {{ product.price }}</p>
                     {% if product.category %}
                     <p class="small mt-1 mb-0">
                         <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
@@ -51,7 +51,7 @@
                                     <p><strong>Size:</strong></p>
                                     <select class="form-control rounded-0 w-50" name="product_size" id="id_product_size">
                                         {%for size in sizes %}
-                                            <option value="{{size.price}}">{{size.name}}</option>
+                                            <option data-value="{{size.price}}" value="{{size.id}}">{{size.name}}</option>
                                         {%endfor%}
                                     </select>
                                 </div>
@@ -105,12 +105,5 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
-
-<script>
-    function updatePrice(event){
-        console.log("I selected ", event.target.value, ' size');
-        document.getElementById('currentPrice').innerHTML = '£' + event.target.value;
-    }
-    document.getElementById('id_product_size').addEventListener("change", updatePrice);
-</script>
+<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
