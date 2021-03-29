@@ -23,6 +23,8 @@ def bag_contents(request):
             })
         else:
             product = get_object_or_404(Product, pk=item_id)
+            # to show errors
+            print('bag',item_data['items_by_size'].items())
             for size, quantity in item_data['items_by_size'].items():
                 product_size = ProductSize.objects.get(pk=size)
                 total += quantity * product_size.price
