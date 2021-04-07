@@ -6,7 +6,7 @@
     {% block meta %}
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
     {% endblock %}
 
     {% block extra_meta %}
@@ -37,7 +37,7 @@
     <title>Nutz About {% block extra_title %}{% endblock %}</title>
   </head>
   <body>
-    <header class="container-fluid fixed-top">
+    <header class="container-fluid fixed-top bg-white">
         <div class="row">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
@@ -69,9 +69,10 @@
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
-                                {% if request.user.is_superuser %}
+                                {% if request.user.is_superuser or "product manager" in request.user.groups %}
                                     <a href="" class="dropdown-item">Product Management</a>
                                 {% endif %}
+
                                 <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
@@ -100,7 +101,7 @@
            
         </div>
         
-        <div class="row bg-white">
+        <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light w-100">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -111,7 +112,7 @@
         </div>
 
         <div id="delivery-banner" class="row text-center">
-            <div class="col">
+            <div class="col bg_white">
                 <h4 class="logo-font my-1">Free delivery on orders over £ {{ free_delivery_threshold }}!</h4>                
             </div>            
         </div>
