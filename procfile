@@ -1,1 +1,1 @@
-web: gunicorn nutzabouthardware.wsgi:application
+web: gunicorn MS4-nutz-about.wsgi:application
