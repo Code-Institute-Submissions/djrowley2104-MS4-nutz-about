@@ -1,1 +1,1 @@
-web: gunicorn MS4-nutz-about.wsgi:application
+web: gunicorn nutz_about.wsgi:application
