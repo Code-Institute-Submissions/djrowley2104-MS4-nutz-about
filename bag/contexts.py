@@ -3,6 +3,7 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from products.models import Product, ProductSize
 
+
 def bag_contents(request):
 
     bag_items = []
@@ -24,7 +25,7 @@ def bag_contents(request):
         else:
             product = get_object_or_404(Product, pk=item_id)
             # to show errors
-            print('bag',item_data['items_by_size'].items())
+            print('bag', item_data['items_by_size'].items())
             for size, quantity in item_data['items_by_size'].items():
                 product_size = ProductSize.objects.get(pk=size)
                 total += quantity * product_size.price
@@ -44,9 +45,9 @@ def bag_contents(request):
     else:
         delivery = 0
         free_delivery_delta = 0
-    
+
     grand_total = delivery + total
-    
+
     context = {
         'bag_items': bag_items,
         'total': total,
