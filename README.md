@@ -26,12 +26,13 @@
 ## The site has been designed allow users to see hardware items for sale and to navigate to the required item quickly and easily. 
 ## When the site is opened the users are shown a hero image showing nuts and bilts, this gives then another clue as to what the site is all about. After logging on the user is taken to the Products page where they are able to search though all the products or filter their searchs via the differing manu options.
 ## Users entering as guests, are not taken directly to the Products pages, this is done deliberately, as they were told on entering the site that the experience would be slower and more painful if they had accounts.
-## New sales types can be reviewed and added once again only by the Admin, they can also be deleted if they are no longer needed. This has been amended to allow a Product Manager to login and only add and remove products. This allows the main admin to be done by the site administrator and product admin to be done by the Product Manager.
-## The nuts and bolts can have sizes added to them from the size selector, this will apply a different price per size, the prices are managed from the admin section of the Django db, the prices are added to the grand total and the free postage countdown, so the site works as it should. 
+## Products can be reviewed, updated, deleted and new ones added once again only by the Admin. This has been amended to allow a Product Manager to login and only review, amend, add and remove products. This allows the main admin to be done by the site administrator and product admin to be done by the Product Manager. The product manager enters the product admin section via the Product Manager Tab that is displayed in their account profile section, their login details are;
+* User name: product_manager
+* Login: cbr601&&
+## Nuts and bolts can have sizes added to them from the size selector, this will apply a different price per size, the prices are managed from the admin section of the Django db, the prices are added to the grand total and the free postage countdown, so the site works as it should.  I have elected to only add sizes to one nut, but he mechanics are the same and I could apply sizes to any products that needed them, but to save time as I seem to be running out of it rapidly I have only added ti the one product.
 
 ## Colour Scheme
 ### I decided to use a light and uncluttered page design to allow the user to focus on the products, the users will only be interested in the price and the type and size of the products, they will not want to be mislead via clever flashing images, so I have kept it simple.
-###.
 ## Typography
 ### Standard fonts from Bootstrap have been used, I have no need to over complicate this project, I feel standard san serif font is easier to read and therefore better for the user. No need to keep the users confused with stupid hard to read font types, if I did that the users would not be users for long.
 ## Imagery
@@ -56,32 +57,32 @@
 
 ## Technologies Used
 ### Languages Used
-#### HTML
-#### JavaScript
-#### CSS3
-#### DNSPYTHON
-#### Django
+* HTML
+* JavaScript
+* CSS3
+* DNSPYTHON
+* Django
 ## Relational Databases
-###MySQL
-###Postgres
-### Plus Strip payments
+* MySQL
+* Postgres
+* Plus Strip payments
 ## Frameworks, Libraries & Programs Used
-### Bootstrap
-#### Bootstrap was used to assist with the responsiveness and styling of the website.
-### Font Awesome:
-#### Font Awesome was also used as the icon provider.
-## GitPod
-### GitPod was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
-## GitHub:
+* Bootstrap
+### Bootstrap was used to assist with the responsiveness and styling of the website.
+* Font Awesome:
+### Font Awesome was also used as the icon provider.
+* GitPod
+### GitPod was used for version control by utilizing the Gitpod terminal to commit to Git and Push to Github
+* GitHub.
 ### GitHub is used to store the projects code after being pushed from Gitpod.
-## PC Paint:
+* PC Paint
 ### PC Paint was used to create the wireframes during the design process this was due to the free version of Balsmic running out, but in fairness it worked as well and was able to show the basic page layout.
-## AWS S3 and IAM
+* AWS; S3 and IAM
 ### These were used to store images and control access.
-## Stripe Payment
-### Handled the payment system.
-## Allauth
-### Created the payment management of messages to confirm actions performed within the site.
+* Stripe Payment
+### Stripe handles the payment system.
+* Allauth
+### Created the management of messages that helped to confirm actions performed within the site, this is essential to help the user understand that they have been successful in doing an action on ths site.
 
 # Testing
 ## During initial testing the products when scrolling on the product screen would show in the header, to rectify this I used the bg-white class to turn the header background white and therefore stop this error.
@@ -119,11 +120,11 @@
 ### Once these little issues were sorted the builds really worked and the app was viewable. BUT no products were displayed, so onto the next problem, “Getting the products into Heroku”, see below;
 ## Getting products into Heroku
 ### This turned out to be a more complicated operation and not as automated as I’d hoped for. First thing is to create the json file containing the products. This took several steps; 
-#### Firstly I had to type; “python3 manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json” to create the json file. 
-#### Next I had to populate the file, for this I had to then type; “python3 manage.py loaddata db.json”. Json file created and populated.
-#### After the file was created the json file had to be renamed to products.json and stored in the fixtures directory.
-#### Next loading of the json file into Heroku. For this I had to type; “heroku run python3 manage.py loaddata products.json” this loaded the products data into the heroku db. 
-#### After another git push the products were now viewable in Heroku.
+1. Firstly I had to type; “python3 manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json” to create the json file. 
+2. Next I had to populate the file, for this I had to then type; “python3 manage.py loaddata db.json”. Json file created and populated.
+3. After the file was created the json file had to be renamed to products.json and stored in the fixtures directory.
+4. Next loading of the json file into Heroku. For this I had to type; “heroku run python3 manage.py loaddata products.json” this loaded the products data into the heroku db. 
+5. After another git push the products were now viewable in Heroku.
 ### This process would need to be repeated each time the django db in gitpod was changed in order for the changes to appear in the app in Heroku. As this is a long winded process I elected to only edit the data in the admin section of the Heroku app (as so I understand, have all the other students and tutors in the past).
 
 
