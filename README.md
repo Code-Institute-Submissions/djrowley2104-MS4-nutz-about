@@ -100,8 +100,9 @@
 ### As a Frequent User, I decided that they would need access to see their past orders and to be able to find the items they want easily. The products page is displayed on logging into the site, this displays everything that is on the site. Various searches can be selected, these can be types of nuts and bolts or materials they are made from.
 
 ## Further Testing
+### During the testing the site in the deployed project and adding more products, I found that adding a product called Alan Bolts, I found that once I’d added the product it did not show when I searched for allen bolts, but did show when I searched for products. This turned out to be an error in the category name in the search href URL, easy fix.
 
-### I have run through the site’s.
+### I have run through the site’s menus in both the larger screens and the mobile screens to be sure they work as they should. I have found that my product admin link takes the administrator to the admin section perfectly, but it does not have a back button the enable the administrator to return to the web site and see the changes to check how they look and function.
 
 # Known Bugs 
 ##  
