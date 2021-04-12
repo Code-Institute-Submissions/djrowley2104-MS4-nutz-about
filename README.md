@@ -30,6 +30,9 @@
 ## Products can be reviewed, updated, deleted and new ones added once again only by the Admin. This has been amended to allow a Product Manager to login and only review, amend, add and remove products. This allows the main admin to be done by the site administrator and product admin to be done by the Product Manager. The product manager enters the product admin section via the Product Manager Tab that is displayed in their account profile section, their login details are;
 * User name: product_manager
 * Login: cbr601&&
+* The Admin super user is: djrowley@hotmail.co.uk
+* admin password is: cbr601&&
+## The Product manager will be able to amend the products only, but the admin super user has the power to manage everything on the site.
 ## Nuts and bolts can have sizes added to them from the size selector, this will apply a different price per size, the prices are managed from the admin section of the Django db, the prices are added to the grand total and the free postage countdown, so the site works as it should.  I have elected to only add sizes to one nut, but he mechanics are the same and I could apply sizes to any products that needed them, but to save time as I seem to be running out of it rapidly I have only added ti the one product.
 
 ## Colour Scheme
@@ -104,11 +107,10 @@
 ### During the testing the site in the deployed project and adding more products, I found that adding a product called Alan Bolts, I found that once I’d added the product it did not show when I searched for allen bolts, but did show when I searched for products. This turned out to be an error in the category name in the search href URL, easy fix.
 ### I have run through the site’s menus in both the larger screens and the mobile screens to be sure they work as they should. I have found that my product admin link takes the administrator to the admin section perfectly, but it does not have a back button the enable the administrator to return to the products page of the site and see the changes to check how they look and function.
 ### I have also noticed during the testing of the deployed site that he link to the hero image (bolts.png) does not load, but works fine in the GitPod environment, this points to the links to the media location not being correct or the bolts.png missing, to correct this I have added the https://nutzabouthardware.s3.amazonaws.com/media/bolts.png.
-### Webhooks seem to fail, they were just returning a 301, but now I get a 500 server error, 
+### Webhooks seem to fail, they were just returning a 301, but now I get a 500 server error, I have changed the webhoook key, removed them from setting s.py add them to env.py and the environment variables in Heroku. Just fixed it, https://nutzabouthardware.herokuapp.com/checkout/wh needs to be https://nutzabouthardware.herokuapp.com/checkout/wh/ once the change was made it all worked correctly.
 ### After the final lesson I tried to sort out the Flake 8 issues, most of them were naming conventions that were too long, I was able to shorten and clean up, but the access keys were not really suitable to shortening, so I elected to leave them.
 # Known Bugs 
-##  
-
+##  None that I know of the site is fully operational, I think. But you guys will find any errors I have made for sure.
 # Deployment
 ## Initial Development
 ### After running out of free time in GitPod, I was advised to contact student services, they added me to team unlimited, which was a god send for this project as I needed so much time to get the project working correctly. I did initially get the site working locally, but once I was able to get unlimited access to GitPod I no longer needed to do this, it was going to be hard to keep control of the status of the site and possibly loose work if I had two places to store my work.
