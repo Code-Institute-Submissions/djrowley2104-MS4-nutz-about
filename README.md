@@ -101,14 +101,13 @@
 
 ## Further Testing
 ### During the testing the site in the deployed project and adding more products, I found that adding a product called Alan Bolts, I found that once I’d added the product it did not show when I searched for allen bolts, but did show when I searched for products. This turned out to be an error in the category name in the search href URL, easy fix.
-
 ### I have run through the site’s menus in both the larger screens and the mobile screens to be sure they work as they should. I have found that my product admin link takes the administrator to the admin section perfectly, but it does not have a back button the enable the administrator to return to the web site and see the changes to check how they look and function.
+### I have also noticed during the testing of the deployed site that he link to the hero image (bolts.png) does not load, but works fine in the GitPod environment, this points to the links to the media location not being correct or the bolts.png missing.
 
 # Known Bugs 
 ##  
 
 # Deployment
-
 ## Initial Development
 ### After running out of free time in GitPod, I was advised to contact student services, they added me to team unlimited, which was a god send for this project as I needed so much time to get the project working correctly. I did initially get the site working locally, but once I was able to get unlimited access to GitPod I no longer needed to do this, it was going to be hard to keep control of the status of the site and possibly loose work if I had two places to store my work.
 ## Deployment locally onto Windows
@@ -117,15 +116,158 @@
 ### Setting up AWS worked as per the lessons; open an account, Setup IAM, Set up S3, Creating the policies in S3, Uploading images. All these were very easy and following the lessons really made it all work very smoothly.
 ## Deployment to Heroku
 ### Deployment to Heroku, seemed easy as after following the lessons it seemed that the builds were successful, I had been lulled into a false sense onsuccess by seeing that the builds were successful, BUT once I tried to open the app in Heroku, that’s when it all went wrong. Naming conventions were not followed, files names were incorrect.
+### Setting up Heroku
+1.	To set up, the Heroku app
+2.	Go to the Heroku website at Heroku com.
+3.	Click “new” to create new app. Give the new app a name, and choose the closest region.
+4.	From the “Resources” tab, under the add-ons section of the page, type; “Postgres” this will deisplay the options available, from the dropdown menu select the “posrtgres” option with the Heroku icon.
+5.	Once selected this will display the submit order page, select the “free plan”.
+6.	To use Postgres go back to gitpod and install dj_database_url, and psycopg2; 
+* Type; “pip3 install dj_database_url” 
+* Type; “ pip3 install psycopg2-binary”
+7.	Now to freeze the requirements type; “pip3 freeze > requirements.txt”
+8.	This ensures Heroku installs all our apps requirements when we deploy it.
+9.	To setup the stores new database go to settings.py, type; “import dj_database_url” under the “import os” text.
+10.	Then down in the databases setting, comment out the default configuration, replacing it with a call to dj_database_url.parse, type;  “DATABASES = {     'default': dj_database_url.parse (‘’)}”
+11.	Add give it the database URL from Heroku in-between the comments ‘’. Which you can get from your config variables in the Heroku app settings tab and copying and pasting them.
+12.	Save the settings.py file, connect to our new Heroku database and run migrations.
+13.	To see which migrations have not been setup, type  “python3 manage.py showmigrations”.
+14.	To migrate the new settings, Type “python3 manage.py migrate”
+15.	It will apply all those migrations and get our database all set up. Now to import all our product data, we can use our fixtures again by first loading in the categories and then the products.
+*** Note:-	It is important to do them in that order because the products depend on the categories already existing
+16.	To load the categories, type: “python3 manage.py loaddata categories”.
+17.	To load the products, type: “python3 manage.py loaddata products”.
+18.	To create a superuser, type;  “python3 manage.py createsuperuser” and follow the instructions.
+### Create the Profile
+1.	Install unicorn, type: “pip3 install gunicorn” 
+2.	Now to freeze the requirements type; “pip3 freeze > requirements.txt”
+3.	Now create a new file called Procfile in the section that  contains the requirements.txt file. It is important that the Procfile has a uppercase P, this tells Heroku that it needs to read this file.
+4.	Inside the Procfile, type: web: gunicorn filename.wsgi:application. The file name must be the name of the folder where the main app is located.
+5.	By using Heroku config set, disable type; “heroku config:set DISABLE_COLLECTSTATIC=1 –app= nutzabouthardware”, this will stop Heroku trying to collect static files when deploying.
+6.	Note:-	Or you can use DISABLE_COLLECTSTATIC=1
+7.	Next add the hostname of the Heroku app to allowed hosts in settings.py, type:
+8.	“ALLOWED_HOSTS = ['djr21-botique-ado.herokuapp.com', 'localhost']”
+9.	Then push to Heroku master to deploy to Heroku, type; “git push heroku master”
+10.	To deploy on Heroku, Type; “heroku git:remote -a filename” The filename must be the name of the project in GitHub.
+### Setting up AWS
+1.	Navigate to aws.amazon.com, either open a new account or login to an AWS account.
+2.	Type is s3 in the search bar, or finding it through the services menu.
+3.	Open s3 and create a new bucket, this will be used to store our files.
+4.	Click create bucket.
+5.	First on the properties tab turn on static website hosting, this will give a new endpoint that can be used to access from the internet.
+6.	Click save.
+7.	Now on the permissions tab make three changes;
+* First paste in a coors configuration which is going to set up the required access between our Heroku app and this s3 bucket. On the bucket policy tab select, policy generator so we can create a security policy for this bucket.  Select policy type “s3 bucket policy”, to allow all principals use a star.
+* Allow access to all resources in this bucket, add a slash and * at the end of the resource key, and then click save policy.
+* From the Public Access section set the list objects permission for everyone, and click save changes.
+### Setting IAM
+1.	From the services menu and open IAM
+2.	To create a group, click groups then create a new group called “filename”, Filename is whatever name you need.
+3.	Click next step.
+4.	Create group.
+5.	To create the policy to access the bucket click “policies” and then “create policy”.
+6.	Click the JSON tab and then select import managed policy which will let us import one that AWS has pre-built for full access to S3, search for “S3” and then import the “S3 full access policy”.
+7.	Now here we don't actually want to allow full access to everything we only want to allow full access to our new bucket and everything within it. So get the bucket “ARN” from the bucket policy page in “S3”, copy it.
+8.	And paste that in “[“*”]”, using the code [“ARN”, “ARN/*”], now all s3 three actions are allowed both in the bucket itself and on everything in it.
+9.	Now click “review policy”.
+* Give it a name and a description,
+* Click the review “review” button,
+* And then click the “create policy” button.
+10.	This takes us back to the policies page where we can see our policy has been created successfully.
+11.	A attach the policy to the group;
+*From “groups”, click my manage boutique-ado-group,
+* click “attach policy”,
+* Search for the policy we just created by typing part of the name and select it,
+* Click “review”,
+*And click “attach policy”,
+* Finally I'll create a user to put in the group,
+* On the user's page, I'll click add user,
+* Create a user named boutique-ado-staticfiles-user,
+* Select them programmatic access,
+* Select next,
+* Now put the user in the group. Which as you can see here has our policy attached.
+* We don't need to change anything else.
+* Click through to the end and then click “create user”.
+12.	Now download the CSV file which will contain the users access key and secret access key Which we'll use to authenticate them from our Django app, by clicking the “Download CSV File” button.
+13.	To connect django to it, istall two new packages, using “pip3 install boto3” and “pip3 install django-storages”
+14.	Freeze those into the requirements.txt file so they get installed on Heroku when we deploy, type: “pip3 freeze > requirements.txt”.
+15.	Add storages to the installed apps since django will need to know about it.
+16.	To connect Django to s3 we need to add some settings in settings.py to tell it which bucket it should be communicating with. Use the following code;
+
+
+
+* if 'USE_AWS' in os.environ:
+   * #Bucket Config
+    * AWS_STORAGE_BUCKET_NAME = 'djr21-botique-ado'
+    * AWS_S3_REGION_NAME = 'EU (London) eu-west-2'
+    * AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    * AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    * AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    * #Static and media files
+    * STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    * STATICFILES_LOCATION = 'static'
+    * DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    * MEDIAFILES_LOCATION = 'media'
+    * #Override static and media URLs in production
+    * STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    * MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+***Note:-	Adding the access and secret keys from the CSV file that was stored from AWS.
+17.	Go to Heroku and add our AWS keys to the config variables, these all come from the CSV file that was created earlier.
+18.	While here let's also remove the disable “collectstatic variable” click the delete option.
+19.	Back in our settings file. We need to tell django where our static files will be coming from in production. This done using an F string so the bucket name from above will be interpreted and added to generate the appropriate URL.
+20.	The next step is to tell django that in production we want to use S3 to store our static files whenever someone runs collectstatic. That we want any uploaded product images to go there also.
+21.	To do that create a file called “custom_storages”, use code;
+
+* from django.conf import settings
+* from storages.backends.s3boto3 import S3Boto3Storage
+
+* class StaticStorage(S3Boto3Storage):
+*    location = settings.STATICFILES_LOCATION
+
+* class MediaStorage(S3Boto3Storage):
+*    location = settings.MEDIAFILES_LOCATION
+	
+	
+	
+	
+	
+	
+	
+	
+	
+22.	Go to Settings.py
+23.	Tell it that for static file storage we want to use our storage class we just created, the location it should save static files is a folder called static.
+24.	Then do the same thing for media files by using the default file storage, and media files location settings.
+25.	To make sure it works, all we have to do is add all these changes. Commit these changes in GitPod to will trigger the automatic deployment to Heroku.
+### Deployment of project to Heroku
+1.	Create a new folder in AWS S3 and call it media.
+2.	Open the media folder, click upload. Add files images you want to upload.
+3.	Next and under manage public permissions select grant public read access to these objects.
+4.	Click next through to the end here, then click upload
+5.	First we haven't confirmed the email address for our superuser on the Postgres database yet. So we need to do that in the Django admin. 
+6.	Finally add the stripe keys to the Heroku config variables.
+7.	Clicking developers. And then API keys.
+8.	In Heroku, I'll add them as config variables.
+9.	Now create a new webhook endpoint;
+
+* The current one is sending webhooks to our gitpod workspace
+* Navigateg to webhooks in the developer's menu, and type “URL of your Heroku app, followed by /checkout/WH
+* Select receive all events and add endpoint.
+10.	Now reveal our webhooks signing secret key, and add that to our Heroku config variables.
+### The above step were needed to deploy the project, but unbeknown o me I had forgotten to do some of them correctly.
+
+
+
+
 ### After some testing times, I found that; the file name of the Procfile had to have an uppercase “P”, this allowed Heroku to recognise that it was a file that it needed to use during the build process. Plus the name inside the Procfile needed to be the name where the settings.py file was stored not the project name in Heroku. 
 ### Once these little issues were sorted the builds really worked and the app was viewable. BUT no products were displayed, so onto the next problem, “Getting the products into Heroku”, see below;
 ## Getting products into Heroku
 ### This turned out to be a more complicated operation and not as automated as I’d hoped for. First thing is to create the json file containing the products. This took several steps; 
 1. Firstly I had to type; “python3 manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json” to create the json file. 
 2. Next I had to populate the file, for this I had to then type; “python3 manage.py loaddata db.json”. Json file created and populated.
-3. After the file was created the json file had to be renamed to products.json and stored in the fixtures directory.
-4. Next loading of the json file into Heroku. For this I had to type; “heroku run python3 manage.py loaddata products.json” this loaded the products data into the heroku db. 
-5. After another git push the products were now viewable in Heroku.
+### After the file was created the json file had to be renamed to products.json and stored in the fixtures directory.
+1. Next loading of the json file into Heroku. For this I had to type; “heroku run python3 manage.py loaddata products.json” this loaded the products data into the heroku db. 
+2. After another git push the products were now viewable in Heroku.
 ### This process would need to be repeated each time the django db in gitpod was changed in order for the changes to appear in the app in Heroku. As this is a long winded process I elected to only edit the data in the admin section of the Heroku app (as so I understand, have all the other students and tutors in the past).
 
 
