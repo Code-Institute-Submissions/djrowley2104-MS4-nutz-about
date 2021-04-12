@@ -3,12 +3,9 @@
 ### I decided to follow the Boutique ADO mini project closely in order to make the process much easier for me, I have lost to learn about coding and this project has been the most daunting due to the scale and complexity of the mile stone project.
 ### I have designed this site to give the hardware shopper the ability to buy hardware products.
 ### The site could be further developed to show more hardware items, and add more detailed searches and maybe add a deal of the week function. Due to not having the time I have not added any deals.
-
 # Site Goals
 ## The site design
-### The site is designed to be clear and uncluttered, allowing the users to find products and purchase them with ease. The site does not have many products but once the mechanics of getting the product to view and then transferring them from the development area to the final deployed site have been proven. Adding more products and developing the site is just more of the same.
-
-
+### The site is designed to be clear and uncluttered, allowing the users to find products and purchase them with ease. The site does not have many products but once the mechanics of getting the product to view and then transferring them from the development area to the final deployed site have been proven. Adding more products and developing the site is just more of the same, I decided to only add 20 ish products to the project.
 # UX / User Experience
 ## First Time Visitor Goals
 ### As a first time visitor, I want them to be able to be able to, either;  login and create an account easily or if they want to enter the site without an account. The users are told that having an account will make the purchase easier and quicker, but should they choose not to create an account that is fine.
@@ -19,8 +16,12 @@
 ## Returning User Goals
 ### As a Returning user, I want them to be able to find the type of product and then find exactly what they want and then they want to easily be able to buy items quickly.
 ### The returning user is able to log in and to see and review their account profile.
-### The returning user should be able to review their purchase history and account details as required.
+### The returning user should be able to review their purchase history and account details as required, and amend the account details if need.
 ### The products should be displayed easily and sorting various types of product must be easy, they should be able to sort via price rating or alphabetically as required, allowing for differing users as not all people think in the same way, offering differing way to view products is essential to making their experience of the site a pleasant one and one they want to keep on doing.
+### The amount they have spent should be clearly displayed and any discounts on postage should be clearly shown.
+## User Goals
+### Regardless of the type of user some of the goals will be the same, users will 
+
 
 # Design / Features
 ## The site has been designed allow users to see hardware items for sale and to navigate to the required item quickly and easily. 
@@ -101,9 +102,10 @@
 
 ## Further Testing
 ### During the testing the site in the deployed project and adding more products, I found that adding a product called Alan Bolts, I found that once I’d added the product it did not show when I searched for allen bolts, but did show when I searched for products. This turned out to be an error in the category name in the search href URL, easy fix.
-### I have run through the site’s menus in both the larger screens and the mobile screens to be sure they work as they should. I have found that my product admin link takes the administrator to the admin section perfectly, but it does not have a back button the enable the administrator to return to the web site and see the changes to check how they look and function.
-### I have also noticed during the testing of the deployed site that he link to the hero image (bolts.png) does not load, but works fine in the GitPod environment, this points to the links to the media location not being correct or the bolts.png missing.
-
+### I have run through the site’s menus in both the larger screens and the mobile screens to be sure they work as they should. I have found that my product admin link takes the administrator to the admin section perfectly, but it does not have a back button the enable the administrator to return to the products page of the site and see the changes to check how they look and function.
+### I have also noticed during the testing of the deployed site that he link to the hero image (bolts.png) does not load, but works fine in the GitPod environment, this points to the links to the media location not being correct or the bolts.png missing, to correct this I have added the https://nutzabouthardware.s3.amazonaws.com/media/bolts.png.
+### Webhooks seem to fail, they were just returning a 301, but now I get a 500 server error, 
+### After the final lesson I tried to sort out the Flake 8 issues, most of them were naming conventions that were too long, I was able to shorten and clean up, but the access keys were not really suitable to shortening, so I elected to leave them.
 # Known Bugs 
 ##  
 
@@ -114,6 +116,7 @@
 ### After getting this working I decided I was going to use this method as it would reduce my GitPod development time. But after getting access to team unlimited, I then decided in order to keep the chances of making issue errors by developing in effect two sites. I decided to only use GitPod as I now had unlimited development time.
 ## Migration of Images to AWS S3
 ### Setting up AWS worked as per the lessons; open an account, Setup IAM, Set up S3, Creating the policies in S3, Uploading images. All these were very easy and following the lessons really made it all work very smoothly.
+### I also added the products and additional images via the product admin from within the deployed app in Heroku, this added the images to S3 automagically and saved me more time and reducing errors by doing the manual deployment from GitPod to Heroku and creating the json files again.
 ## Deployment to Heroku
 ### Deployment to Heroku, seemed easy as after following the lessons it seemed that the builds were successful, I had been lulled into a false sense onsuccess by seeing that the builds were successful, BUT once I tried to open the app in Heroku, that’s when it all went wrong. Naming conventions were not followed, files names were incorrect.
 ### Setting up Heroku
@@ -193,9 +196,6 @@
 14.	Freeze those into the requirements.txt file so they get installed on Heroku when we deploy, type: “pip3 freeze > requirements.txt”.
 15.	Add storages to the installed apps since django will need to know about it.
 16.	To connect Django to s3 we need to add some settings in settings.py to tell it which bucket it should be communicating with. Use the following code;
-
-
-
 * if 'USE_AWS' in os.environ:
    * #Bucket Config
     * AWS_STORAGE_BUCKET_NAME = 'djr21-botique-ado'
@@ -217,13 +217,10 @@
 19.	Back in our settings file. We need to tell django where our static files will be coming from in production. This done using an F string so the bucket name from above will be interpreted and added to generate the appropriate URL.
 20.	The next step is to tell django that in production we want to use S3 to store our static files whenever someone runs collectstatic. That we want any uploaded product images to go there also.
 21.	To do that create a file called “custom_storages”, use code;
-
 * from django.conf import settings
 * from storages.backends.s3boto3 import S3Boto3Storage
-
 * class StaticStorage(S3Boto3Storage):
 *    location = settings.STATICFILES_LOCATION
-
 * class MediaStorage(S3Boto3Storage):
 *    location = settings.MEDIAFILES_LOCATION
 	
@@ -249,25 +246,20 @@
 7.	Clicking developers. And then API keys.
 8.	In Heroku, I'll add them as config variables.
 9.	Now create a new webhook endpoint;
-
 * The current one is sending webhooks to our gitpod workspace
 * Navigateg to webhooks in the developer's menu, and type “URL of your Heroku app, followed by /checkout/WH
 * Select receive all events and add endpoint.
 10.	Now reveal our webhooks signing secret key, and add that to our Heroku config variables.
 ### The above step were needed to deploy the project, but unbeknown o me I had forgotten to do some of them correctly.
-
-
-
-
 ### After some testing times, I found that; the file name of the Procfile had to have an uppercase “P”, this allowed Heroku to recognise that it was a file that it needed to use during the build process. Plus the name inside the Procfile needed to be the name where the settings.py file was stored not the project name in Heroku. 
 ### Once these little issues were sorted the builds really worked and the app was viewable. BUT no products were displayed, so onto the next problem, “Getting the products into Heroku”, see below;
 ## Getting products into Heroku
 ### This turned out to be a more complicated operation and not as automated as I’d hoped for. First thing is to create the json file containing the products. This took several steps; 
 1. Firstly I had to type; “python3 manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json” to create the json file. 
 2. Next I had to populate the file, for this I had to then type; “python3 manage.py loaddata db.json”. Json file created and populated.
-### After the file was created the json file had to be renamed to products.json and stored in the fixtures directory.
-1. Next loading of the json file into Heroku. For this I had to type; “heroku run python3 manage.py loaddata products.json” this loaded the products data into the heroku db. 
-2. After another git push the products were now viewable in Heroku.
+### After the file was created the json file had to be renamed to products.json and stored in the fixtures directory. The next steps were;
+1. Loading of the json file into Heroku. For this I had to type; “heroku run python3 manage.py loaddata products.json” this loaded the products data into the heroku db. 
+2. After another git push to trigger a deployment to Heroku and a new build process in Heroku, the products were now viewable in Heroku.
 ### This process would need to be repeated each time the django db in gitpod was changed in order for the changes to appear in the app in Heroku. As this is a long winded process I elected to only edit the data in the admin section of the Heroku app (as so I understand, have all the other students and tutors in the past).
 
 
