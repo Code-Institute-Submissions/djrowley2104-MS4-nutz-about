@@ -2,8 +2,11 @@
 ## Introduction
 ### I decided to follow the Boutique ADO mini project closely in order to make the process much easier for me, I have lost to learn about coding and this project has been the most daunting due to the scale and complexity of the mile stone project.
 ### I have designed this site to give the hardware shopper the ability to buy hardware products.
+### I have only added sizes to one product, all the Nuts and Bolts that have a size in the title do not used sizes category. There is one standard nut that does not contain a size in it's title, the nut that contains sizes in it's product details screen has a SKU number of nt6000001. The sizes are selected from the product details secreen, the default is M3. Selecting any other sizes will apply the correct size and different price relating to that size. I could have added more, but I did unfortunately run out of time to further develope this and add it to other products.
 ### The site could be further developed to show more hardware items, and add more detailed searches and maybe add a deal of the week function. Due to not having the time I have not added any deals.
+
 # Site Goals
+
 ## The site design
 ### The site is designed to be clear and uncluttered, allowing the users to find products and purchase them with ease. The site does not have many products but once the mechanics of getting the product to view and then transferring them from the development area to the final deployed site have been proven. Adding more products and developing the site is just more of the same, I decided to only add 20 ish products to the project.
 # UX / User Experience
